@@ -167,7 +167,7 @@ d3.csv("assets/data/acsdata.csv")
 //   return yAxis;
 // }
 
-// // function used for updating circles group with a transition to new circles
+// function used for updating circles group with a transition to new circles
 // function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 
 //   circlesGroup.transition()
@@ -175,4 +175,91 @@ d3.csv("assets/data/acsdata.csv")
 //     .attr("cx", d => newXScale(d[chosenXAxis]));
 
 //   return circlesGroup;
+// }
+// function used for updating circles group with a transition to new circles
+// function renderCircles(circlesGroup, newYScale, chosenYaxis) {
+
+//   circlesGroup.transition()
+//     .duration(1000)
+//     .attr("cy", d => newYScale(d[chosenYAxis]));
+
+//   return circlesGroup;
+// }
+// function used for updating circles group with new tooltip
+// function updateToolTip(chosenXAxis, circlesGroup) {
+
+//   if (chosenXAxis === "poverty") {
+//     var label = "In Poverty (%)";
+//   }
+//   else {
+//     var label = "Age (Median)";
+//   }
+
+//   var toolTip = d3.tip()
+//     .attr("class", "tooltip")
+//     .offset([80, -60])
+//     .html(function(d) {
+//       return (`${d.abbr}<br>${label} ${d[chosenXAxis]}`);
+//     });
+
+//   circlesGroup.call(toolTip);
+
+//   circlesGroup.on("mouseover", function(data) {
+//     toolTip.show(data);
+//   })
+//     // onmouseout event
+//     .on("mouseout", function(data, index) {
+//       toolTip.hide(data);
+//     });
+
+//   return circlesGroup;
+// }
+
+// // Retrieve data from the CSV file and execute everything below
+// d3.csv("acsdata.csv", function(err, acsdata) {
+//   if (err) throw err;
+
+//   // parse data
+//   acsdata.forEach(function(data) {
+//     data.poverty = +data.poverty;
+//     data.healthcare = +data.healthcare;
+//     data.age = +data.age;
+//     data.smokes = +data.smokes;
+//     data.income = +data.income;
+//     data.obesity = +data.obesity;
+//     });
+
+//   // xLinearScale function above csv import
+//   var xLinearScale = xScale(acsdata, chosenXAxis);
+
+//   // Create y scale function
+//   var yLinearScale = d3.scaleLinear()
+//     .domain([0, d3.max(acsdata, d => d.obesity)])
+//     .range([height, 0]);
+  
+//   // Create initial axis functions
+//   var bottomAxis = d3.axisBottom(xLinearScale);
+//   var leftAxis = d3.axisLeft(yLinearScale);
+
+//   // append x axis
+//   var xAxis = chartGroup.append("g")
+//     .classed("x-axis", true)
+//     .attr("transform", `translate(0, ${height})`)
+//     .call(bottomAxis);
+
+//   // append y axis
+//   chartGroup.append("g")
+//     .call(leftAxis);
+  
+//   // append initial circles
+//   var circlesGroup = chartGroup.selectAll("circle")
+//     .data(acsdata)
+//     .enter()
+//     .append("circle")
+//     .attr("cx", d => xLinearScale(d[chosenXAxis]))
+//     .attr("cy", d => yLinearScale(d.obesity))
+//     .attr("r", 20)
+//     .attr("fill", "pink")
+//     .attr("opacity", ".5");
+
 });
