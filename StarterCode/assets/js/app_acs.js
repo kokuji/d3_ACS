@@ -242,7 +242,7 @@ d3.csv("assets/data/acsdata.csv").then(function(acsdata) {
 
     // Create y scale function
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(acsdata, d => d.healthcare)])
+        .domain([0, d3.max(acsdata, d => d.obesity)])
         .range([height, 0]);
 
     // Create initial axis functions
@@ -266,7 +266,7 @@ d3.csv("assets/data/acsdata.csv").then(function(acsdata) {
         .enter()
         .append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
-        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("cy", d => yLinearScale(d.obesity))
         .attr("r", 20)
         .attr("fill", "blue")
         .attr("opacity", ".5");
@@ -295,7 +295,7 @@ d3.csv("assets/data/acsdata.csv").then(function(acsdata) {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .classed("axis-text", true)
-        .text("Lacks Healthcare (%)");
+        .text("Obesity (%)");
 
     // updateToolTip function above csv import
     var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
